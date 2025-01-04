@@ -1,0 +1,29 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Site {
+  id        Int    @id @default(autoincrement())
+  site_name String
+  Item      Item[]
+  fileUrl   String
+}
+
+model Item {
+  id                    Int       @id @default(autoincrement())
+  site                  Site      @relation(fields: [site_id], references: [id], onDelete: Cascade)
+  site_id               Int
+  item_name             String
+  last_maintenance_date DateTime?
+  next_maintenance_date DateTime?
+  notes                 String?
+  fileUrl               String
+}
