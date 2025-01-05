@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message: 'File uploaded successfully',
-      tempPath,  // Return the path of the uploaded file in `/tmp`
+      path: tempPath,  // Return the path of the uploaded file in `/tmp`
     });
   } catch (error) {
     console.error('Error handling file upload:', error);
