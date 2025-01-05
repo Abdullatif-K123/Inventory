@@ -1,24 +1,34 @@
-import { writeFile } from 'fs/promises'
-import { NextRequest, NextResponse } from 'next/server'
+import { writeFile } from 'fs/promises';
+import { NextRequest, NextResponse } from 'next/server';
 import { join } from 'path';
 
 export async function POST(request: NextRequest) {
-  const data = await request.formData()
-  const file: File | null = data.get('file') as unknown as File
+  try {
+    const data = await request.formData();
+    const file: File | null = data.get('file') as unknown as File;
 
-  if (!file) {
-    return NextResponse.json({ success: false })
+    if (!file) {
+      return NextResponse.json({ success: false, message: 'No file uploaded' });
+    }
+
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+
+    // Use `/tmp` for the temporary writable directory
+    const tempPath = join('/tmp', file.name);
+    await writeFile(tempPath, buffer);
+    console.log(`File saved temporarily at: ${tempPath}`);
+
+    // If needed, upload the file to external storage here
+    // For example: uploadToS3(tempPath);
+
+    return NextResponse.json({ 
+      success: true, 
+      message: 'File saved temporarily', 
+      tempPath 
+    });
+  } catch (error) {
+    console.error('Error handling file upload:', error);
+    return NextResponse.json({ success: false, message: 'File upload failed', error });
   }
-
-  const bytes = await file.arrayBuffer()
-  const buffer = Buffer.from(bytes)
-
-  // With the file data in the buffer, you can do whatever you want with it.
-  // For this, we'll just write it to the filesystem in a new location
-  // const path = `/tmp/${file.name}`
-  const path = join(process.cwd(), "public", "uploads", file.name);
-  await writeFile(path, buffer)
-  console.log(`open ${path} to see the uploaded file`)
-
-  return NextResponse.json({ success: true, path: `/uploads/${file.name}`});
 }
