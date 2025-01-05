@@ -33,7 +33,7 @@ export default function SiteCreationForm() {
         method: "POST",
         body: data,
       });
-      console.log(res);
+      console.log(res.json(), "here res");
 
       // console.log('res: ', res.json());
 

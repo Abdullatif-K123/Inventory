@@ -4,11 +4,13 @@ import { join } from 'path';  // Importing path to join paths dynamically
 
 // Handle POST request for file upload
 export async function POST(request: NextRequest) {
+  console.log("we are here 222")
+  console.log(request)
   try {
     // Get the form data
+    console.log("we are here")
     const data = await request.formData();
     const file: File | null = data.get('file') as unknown as File;
-     console.log("we are here")
     // If no file is uploaded, return an error
     console.log(file)
     if (!file) {
