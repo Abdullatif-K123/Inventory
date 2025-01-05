@@ -8,8 +8,9 @@ export async function POST(request: NextRequest) {
     // Get the form data
     const data = await request.formData();
     const file: File | null = data.get('file') as unknown as File;
-
+     console.log("we are here")
     // If no file is uploaded, return an error
+    console.log(file)
     if (!file) {
       return NextResponse.json({ success: false, message: 'No file uploaded' });
     }
@@ -20,9 +21,10 @@ export async function POST(request: NextRequest) {
 
     // Use `/tmp` directory to store files in Vercel
     const tempPath = join('/tmp', file.name);  // Save file in the temporary directory
-
+  
     // Write the file to `/tmp` directory
     await writeFile(tempPath, buffer);
+    console.log("we are here two")
     console.log(`File uploaded and saved at: ${tempPath}`);
 
     // Respond with the success message and file path
