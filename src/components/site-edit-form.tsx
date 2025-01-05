@@ -15,6 +15,7 @@ const initialState = {
 
 export default function SiteEditForm({ site }: SiteEditFormProps) {
   const [state, formAction, pending] = useActionState(
+    // @ts-expect-error: Ignoring TypeScript error here
     actions.editSite,
     initialState
   );

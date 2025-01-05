@@ -3,11 +3,10 @@ import { db } from "@/db";
 import ItemEditForm from "@/components/item-edit-form";
 
 interface ItemCreatePageProps {
-  params: {
+  params: Promise<{
     itemId: string;
-  };
+  }>;
 }
-
 export default async function SiteEditPage(props: ItemCreatePageProps) {
   const { itemId } = await props.params;
 

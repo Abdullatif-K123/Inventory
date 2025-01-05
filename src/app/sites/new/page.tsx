@@ -7,16 +7,15 @@ import SiteCreationForm from "@/components/site-creation-form";
 import { writeFile } from "fs/promises";
 import { join } from "path";
 
-  let filePath : string | null = null;
+let filePath: string | null = null;
 
 export default function SiteCreatePage() {
-
   async function upload(data: FormData) {
     "use server";
 
     const file: File | null = data.get("file") as unknown as File;
     if (!file || !filePath) {
-      return;//throw new Error("No file uploaded");
+      return; //throw new Error("No file uploaded");
     }
 
     // data.set('file', file)
@@ -29,22 +28,23 @@ export default function SiteCreatePage() {
     // const path = join("/", "tmp", file.name);
     const path = join(process.cwd(), "public", "uploads", file.name);
     filePath = `/uploads/${file.name}`;
-    console.log('======', filePath);
+    console.log("======", filePath);
     await writeFile(path, buffer);
     // console.log(`open ${path} to see the uploaded file`);
-
-     const site = await db.site.create({
+    const siteName = data.get("site_name");
+    if (!siteName || typeof siteName !== "string") {
+      throw new Error("Invalid or missing site_name");
+    }
+    const site = await db.site.create({
       data: {
-        site_name: data.get('site_name'),
-        fileUrl: filePath
+        site_name: siteName,
+        fileUrl: filePath,
       },
     });
 
-    console.log(site)
+    console.log(site);
 
     return { success: true, filePath };
   }
-  return (
-    <SiteCreationForm />
-  );
+  return <SiteCreationForm />;
 }

@@ -31,17 +31,20 @@ export default function SiteCreatePage() {
     console.log("======", filePath);
     await writeFile(path, buffer);
     // console.log(`open ${path} to see the uploaded file`);
-
+    const siteName = data.get("site_name");
+    if (!siteName || typeof siteName !== "string") {
+      throw new Error("Invalid or missing site_name");
+    }
     const site = await db.site.create({
       data: {
-        site_name: data.get("site_name"),
+        site_name: siteName,
         fileUrl: filePath,
       },
     });
 
     console.log(site);
 
-    return { success: true, filePath };
+    // return { success: true, filePath };
   }
   return (
     <form action={upload} onSubmit={(e) => e.preventDefault()}>

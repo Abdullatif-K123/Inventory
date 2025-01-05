@@ -5,9 +5,9 @@ import * as actions from "@/actions";
 import { SitePDFURL } from "@/components/SitePDFURL";
 
 interface SiteShowPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function SiteShowPage(props: SiteShowPageProps) {

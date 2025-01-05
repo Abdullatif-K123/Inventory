@@ -19,6 +19,7 @@ export default function ItemEditForm({ item }: ItemEditFormProps) {
   const [filePath, setFilePath] = useState(item.fileUrl);
 
   const [state, formAction, pending] = useActionState(
+    // @ts-expect-error: Ignoring TypeScript error here
     actions.editItem,
     initialState
   );
@@ -136,6 +137,7 @@ export default function ItemEditForm({ item }: ItemEditFormProps) {
             <textarea
               className="border w-full"
               name="notes"
+              // @ts-expect-error: Ignoring TypeScript error here
               defaultValue={item.notes}
             />
           </div>

@@ -1,0 +1,12 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/upload/route": "app/api/upload/route.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/sites/[id]/items/[itemId]/edit/page": "app/sites/[id]/items/[itemId]/edit/page.js",
+  "/sites/[id]/edit/page": "app/sites/[id]/edit/page.js",
+  "/sites/[id]/page": "app/sites/[id]/page.js",
+  "/sites/[id]/items/new/page": "app/sites/[id]/items/new/page.js",
+  "/sites/new/page": "app/sites/new/page.js",
+  "/sites/[id]/items/[itemId]/page": "app/sites/[id]/items/[itemId]/page.js",
+  "/page": "app/page.js"
+}

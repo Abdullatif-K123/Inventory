@@ -1,9 +1,9 @@
 import ItemCreationForm from "@/components/item-creation-form";
 
 interface ItemCreatePageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function ItemCreatePage(props: ItemCreatePageProps) {
@@ -13,5 +13,5 @@ export default async function ItemCreatePage(props: ItemCreatePageProps) {
 
   console.log(siteId);
 
-  return <ItemCreationForm siteId={siteId}/>
+  return <ItemCreationForm siteId={siteId} />;
 }

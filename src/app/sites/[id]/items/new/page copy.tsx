@@ -10,7 +10,7 @@ import { join } from "path";
 let filePath: string | null = null;
 
 export default function ItemCreatePage() {
-  async function upload(data: FormData) {
+  async function upload(data: FormData): Promise<void> {
     "use server";
 
     const file: File | null = data.get("file") as unknown as File;
@@ -31,17 +31,20 @@ export default function ItemCreatePage() {
     console.log("======", filePath);
     await writeFile(path, buffer);
     // console.log(`open ${path} to see the uploaded file`);
-
+    const siteName = data.get("site_name");
+    if (!siteName || typeof siteName !== "string") {
+      throw new Error("Invalid or missing site_name");
+    }
     const site = await db.site.create({
       data: {
-        site_name: data.get("site_name"),
+        site_name: siteName,
         fileUrl: filePath,
       },
     });
 
     console.log(site);
 
-    return { success: true, filePath };
+    // return { success: true, filePath };
   }
   return (
     <form action={upload}>
@@ -86,7 +89,7 @@ export default function ItemCreatePage() {
           <label htmlFor="qr_code" className="w-12">
             Notes
           </label>
-          <textarea className="border w-full"/>
+          <textarea className="border w-full" />
         </div>
         <button type="submit" className="rounded p-2 bg-blue-200">
           Save

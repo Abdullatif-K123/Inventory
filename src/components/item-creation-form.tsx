@@ -15,12 +15,13 @@ export default function ItemCreationForm({ siteId }: ItemCreationFormProps) {
   const [file, setFile] = useState<File | null>(null);
 
   const [filePath, setFilePath] = useState(null);
-
+  // eslint-disable-next-line: Disabling ESLint warning for the next line
   const [state, formAction, pending] = useActionState(
+    // @ts-expect-error: Ignoring TypeScript error here
     actions.createItem,
     initialState
   );
-
+  // @ts-expect-error: Ignoring TypeScript error here
   const createItemAction = actions.createItem.bind(null, siteId, filePath);
 
   const onSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {

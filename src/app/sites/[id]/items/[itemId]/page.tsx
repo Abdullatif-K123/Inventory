@@ -5,10 +5,10 @@ import { notFound } from "next/navigation";
 import * as actions from "@/actions";
 
 interface ItemCreatePageProps {
-  params: {
+  params: Promise<{
     id: string;
     itemId: string;
-  };
+  }>;
 }
 
 export default async function ItemCreatePage(props: ItemCreatePageProps) {

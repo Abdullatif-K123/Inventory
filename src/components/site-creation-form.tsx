@@ -13,6 +13,7 @@ export default function SiteCreationForm() {
   const [filePath, setFilePath] = useState(null);
 
   const [state, formAction, pending] = useActionState(
+    // @ts-expect-error: Ignoring TypeScript error here
     actions.createSite,
     initialState
   );
@@ -48,7 +49,7 @@ export default function SiteCreationForm() {
       console.error(e);
     }
   };
-
+  // @ts-expect-error: Ignoring TypeScript error here
   const createSiteAction = actions.createSite.bind(null, filePath);
 
   return (
